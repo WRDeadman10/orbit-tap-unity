@@ -15,6 +15,8 @@ public sealed class OrbitController : MonoBehaviour
     private float currentRadius;
     private float radiusVelocity;
     private float currentAngularSpeed;
+    private float initialRadius;
+    private int initialDirection;
 
     public float Radius => radius;
 
@@ -22,6 +24,8 @@ public sealed class OrbitController : MonoBehaviour
 
     private void Awake()
     {
+        initialRadius = radius;
+        initialDirection = Direction;
         angle = startAngle;
         currentRadius = radius;
         currentAngularSpeed = speed * Direction;
@@ -69,6 +73,17 @@ public sealed class OrbitController : MonoBehaviour
     public void SetRadius(float nextRadius)
     {
         radius = Mathf.Max(0.1f, nextRadius);
+        SnapToOrbit();
+    }
+
+    public void ResetState()
+    {
+        direction = initialDirection;
+        radius = initialRadius;
+        angle = startAngle;
+        radiusVelocity = 0f;
+        currentRadius = radius;
+        currentAngularSpeed = speed * Direction;
         SnapToOrbit();
     }
 

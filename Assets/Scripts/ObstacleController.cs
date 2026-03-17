@@ -81,6 +81,13 @@ public sealed class ObstacleController : MonoBehaviour
         owner.Release(this);
     }
 
+    public void ForceReset()
+    {
+        isActive = false;
+        nearMissTriggered = false;
+        gameObject.SetActive(false);
+    }
+
     private void TryTriggerNearMiss()
     {
         if (nearMissTriggered || playerTransform == null || nearMissFeedback == null)

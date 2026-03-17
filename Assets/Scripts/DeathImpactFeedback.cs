@@ -12,6 +12,7 @@ public sealed class DeathImpactFeedback : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float deathShakeIntensity = 0.8f;
 
     private readonly Queue<DeathParticle> pool = new();
+    private readonly List<DeathParticle> activeParticles = new();
     private CameraShake cameraShake;
     private GameManager gameManager;
 
@@ -58,6 +59,7 @@ public sealed class DeathImpactFeedback : MonoBehaviour
             var particle = pool.Count > 0 ? pool.Dequeue() : CreateParticle();
             var tint = Color.HSVToRGB(Random.value, 0.5f, 1f);
             particle.Activate(transform.position, direction * Random.Range(particleSpeed * 0.7f, particleSpeed), tint, 0.12f, particleLifetime);
+            activeParticles.Add(particle);
             StartCoroutine(ReturnWhenDone(particle));
         }
     }
@@ -72,10 +74,26 @@ public sealed class DeathImpactFeedback : MonoBehaviour
     private IEnumerator ReturnWhenDone(DeathParticle particle)
     {
         yield return new WaitForSecondsRealtime(particleLifetime + 0.02f);
+        activeParticles.Remove(particle);
         if (!pool.Contains(particle))
         {
             pool.Enqueue(particle);
         }
+    }
+
+    public void ResetState()
+    {
+        StopAllCoroutines();
+        Time.timeScale = 1f;
+
+        for (var i = activeParticles.Count - 1; i >= 0; i--)
+        {
+            var particle = activeParticles[i];
+            particle.gameObject.SetActive(false);
+            pool.Enqueue(particle);
+        }
+
+        activeParticles.Clear();
     }
 
     private DeathParticle CreateParticle()

@@ -20,6 +20,7 @@ Step 8 is complete:
 - Near misses now give a small score spike, flash, and camera feedback
 - Death now hits harder with a short slow-motion beat, burst particles, and stronger shake
 - The center anchor now pulses and shifts color to keep the playfield feeling alive
+- Restarts now reset the run in place instead of reloading the scene
 
 Tap input is now wired for the prototype baseline and defaults to switching orbit direction.
 Obstacles now spawn from a small runtime pool and move inward toward the center.

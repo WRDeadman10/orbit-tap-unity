@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public sealed class GameManager : MonoBehaviour
 {
@@ -18,6 +17,9 @@ public sealed class GameManager : MonoBehaviour
 
     private float score;
     private int lastPublishedScore = -1;
+    private OrbitController orbitController;
+    private ObstacleSpawner obstacleSpawner;
+    private DeathImpactFeedback deathImpactFeedback;
 
     private void Awake()
     {
@@ -29,6 +31,9 @@ public sealed class GameManager : MonoBehaviour
 
         Instance = this;
         Time.timeScale = 1f;
+        orbitController = FindFirstObjectByType<OrbitController>();
+        obstacleSpawner = FindFirstObjectByType<ObstacleSpawner>();
+        deathImpactFeedback = FindFirstObjectByType<DeathImpactFeedback>();
     }
 
     private void Start() => StartGame();
@@ -81,7 +86,18 @@ public sealed class GameManager : MonoBehaviour
         PublishScoreIfNeeded();
     }
 
-    public void RestartGame() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    public void RestartGame()
+    {
+        Time.timeScale = 1f;
+        deathImpactFeedback ??= FindFirstObjectByType<DeathImpactFeedback>();
+        obstacleSpawner ??= FindFirstObjectByType<ObstacleSpawner>();
+        orbitController ??= FindFirstObjectByType<OrbitController>();
+
+        deathImpactFeedback?.ResetState();
+        obstacleSpawner?.ResetState();
+        orbitController?.ResetState();
+        StartGame();
+    }
 
     private void PublishScoreIfNeeded()
     {

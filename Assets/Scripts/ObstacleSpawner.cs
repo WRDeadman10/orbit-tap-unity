@@ -16,6 +16,7 @@ public sealed class ObstacleSpawner : MonoBehaviour
     [SerializeField] private Color obstacleColor = new(0.98f, 0.33f, 0.38f, 1f);
 
     private readonly Queue<ObstacleController> pool = new();
+    private readonly List<ObstacleController> activeObstacles = new();
     private float spawnTimer;
 
     private void Awake()
@@ -56,7 +57,11 @@ public sealed class ObstacleSpawner : MonoBehaviour
         SpawnObstacle();
     }
 
-    public void Release(ObstacleController obstacle) => pool.Enqueue(obstacle);
+    public void Release(ObstacleController obstacle)
+    {
+        activeObstacles.Remove(obstacle);
+        pool.Enqueue(obstacle);
+    }
 
     private void SpawnObstacle()
     {
@@ -68,6 +73,21 @@ public sealed class ObstacleSpawner : MonoBehaviour
         var rotationSpeed = Random.Range(rotationSpeedRange.x, rotationSpeedRange.y);
 
         obstacle.Activate(this, orbitCenter, angle, spawnRadius, moveSpeed, rotationSpeed, size, obstacleColor, playerTransform, nearMissFeedback);
+        activeObstacles.Add(obstacle);
+    }
+
+    public void ResetState()
+    {
+        spawnTimer = 0f;
+
+        for (var i = activeObstacles.Count - 1; i >= 0; i--)
+        {
+            var obstacle = activeObstacles[i];
+            obstacle.ForceReset();
+            pool.Enqueue(obstacle);
+        }
+
+        activeObstacles.Clear();
     }
 
     private ObstacleController CreateObstacle()

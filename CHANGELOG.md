@@ -160,3 +160,11 @@ Date: 2026-03-17
 ### Changed
 - Turn the center anchor into a subtle animated focal point
 - Add slow ambience rotation without touching the gameplay path
+
+## Retention Step 6 - Instant Restart
+
+Date: 2026-03-17
+
+### Changed
+- Replace scene reload restart with an in-place run reset
+- Reset obstacles, player orbit state, and death particles instantly on retry
