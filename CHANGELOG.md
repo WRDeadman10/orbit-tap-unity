@@ -63,3 +63,15 @@ Date: 2026-03-17
 ### Changed
 - Added trigger colliders to the player and pooled obstacles
 - Stop the prototype immediately when a collision occurs
+
+## Step 6 - Game Manager
+
+Date: 2026-03-17
+
+### Added
+- `GameManager` for game state and score tracking
+
+### Changed
+- Route collisions through the game manager instead of only freezing time
+- Pause orbit motion, input, and obstacle spawning when the run ends
+- Support scene restart after game over

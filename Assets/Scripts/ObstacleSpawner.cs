@@ -26,7 +26,7 @@ public sealed class ObstacleSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (orbitCenter == null)
+        if (orbitCenter == null || (GameManager.Instance != null && !GameManager.Instance.IsPlaying))
         {
             return;
         }

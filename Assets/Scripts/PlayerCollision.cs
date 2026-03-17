@@ -9,6 +9,12 @@ public sealed class PlayerCollision : MonoBehaviour
             return;
         }
 
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.GameOver();
+            return;
+        }
+
         Time.timeScale = 0f;
     }
 }

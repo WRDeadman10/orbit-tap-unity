@@ -17,6 +17,7 @@ Step 2 is complete:
 Tap input is now wired for the prototype baseline and defaults to switching orbit direction.
 Obstacles now spawn from a small runtime pool and move inward toward the center.
 Collisions now stop the prototype immediately when the player touches an obstacle.
+The prototype now has a central game manager that tracks score over time and restarts the scene after game over.
 
 ## Unity Version
 
@@ -86,7 +87,13 @@ Assets/
 
 `PlayerCollision`
 - Detects player contact with pooled obstacle objects
-- Triggers the temporary game-over stop used before the full game manager is added
+- Reports player hits into the game state flow
+
+`GameManager`
+- Owns play/game-over state for the prototype
+- Tracks score as survived time
+- Reloads the active scene on restart input
+- Publishes score and state changes for the UI layer
 
 ## Development Notes
 

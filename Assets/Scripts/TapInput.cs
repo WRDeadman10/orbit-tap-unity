@@ -21,6 +21,11 @@ public sealed class TapInput : MonoBehaviour
             return;
         }
 
+        if (GameManager.Instance != null && !GameManager.Instance.IsPlaying)
+        {
+            return;
+        }
+
         if (tapMode == TapMode.SwitchDirection)
         {
             orbitController.SwitchDirection();

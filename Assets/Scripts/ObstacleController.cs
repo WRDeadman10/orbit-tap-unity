@@ -15,7 +15,7 @@ public sealed class ObstacleController : MonoBehaviour
 
     private void Update()
     {
-        if (!isActive || orbitCenter == null)
+        if (!isActive || orbitCenter == null || (GameManager.Instance != null && !GameManager.Instance.IsPlaying))
         {
             return;
         }
