@@ -29,3 +29,14 @@ Date: 2026-03-17
 
 ### Changed
 - Wired the player scene object to orbit automatically using configurable radius, speed, and direction values
+
+## Step 3 - Input System
+
+Date: 2026-03-17
+
+### Added
+- `TapInput` for mobile-friendly tap handling
+
+### Changed
+- Connected tap input to the player so taps switch orbit direction by default
+- Added an inspector-configurable alternate tap mode for radius jumps

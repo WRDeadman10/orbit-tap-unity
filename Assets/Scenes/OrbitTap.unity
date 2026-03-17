@@ -299,6 +299,7 @@ GameObject:
   - component: {fileID: 300002}
   - component: {fileID: 300003}
   - component: {fileID: 300004}
+  - component: {fileID: 300005}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -406,6 +407,23 @@ MonoBehaviour:
   speed: 180
   direction: 1
   startAngle: 0
+--- !u!114 &300005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46f24e65824142ebb1286a63ab6ca580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orbitController: {fileID: 300004}
+  tapMode: 0
+  radiusStep: 0.75
+  minimumRadius: 2.5
+  maximumRadius: 4
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

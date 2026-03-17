@@ -14,6 +14,8 @@ Step 2 is complete:
 - Main gameplay scene is set to `OrbitTap`
 - Player uses a procedural circle visual with no external art assets
 
+Tap input is now wired for the prototype baseline and defaults to switching orbit direction.
+
 ## Unity Version
 
 - `6000.3.10f1`
@@ -60,6 +62,11 @@ Assets/
 - Moves the player around the center point using sine and cosine
 - Stores orbit radius, angular speed, start angle, and direction
 - Exposes small methods that later steps can call for tap actions
+
+`TapInput`
+- Reads mouse and touch taps with a single lightweight input path
+- Supports switching orbit direction or cycling to the next orbit radius
+- Keeps tap behavior configurable from the inspector
 
 ## Development Notes
 
