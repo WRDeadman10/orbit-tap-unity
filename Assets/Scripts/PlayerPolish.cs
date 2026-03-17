@@ -11,8 +11,8 @@ public sealed class PlayerPolish : MonoBehaviour
     [SerializeField] private Vector2 tapSquashStretch = new(1.18f, 0.82f);
     [SerializeField] private float tapRecoveryDuration = 0.18f;
     [SerializeField] private float tapRecoveryOvershoot = 1.9f;
-    [SerializeField] private float trailTime = 0.35f;
-    [SerializeField] private float trailWidth = 0.14f;
+    [SerializeField] private float trailTime = 0.28f;
+    [SerializeField] private float trailWidth = 0.16f;
 
     private TrailRenderer trailRenderer;
     private Color currentColor = Color.white;
@@ -54,13 +54,14 @@ public sealed class PlayerPolish : MonoBehaviour
         trailRenderer.numCapVertices = 6;
         trailRenderer.alignment = LineAlignment.View;
         trailRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        trailRenderer.emitting = true;
+        trailRenderer.colorGradient = CreateTrailGradient();
     }
 
     private void ApplyColor(Color color)
     {
         circleVisual.SetColor(color);
-        trailRenderer.startColor = color;
-        trailRenderer.endColor = new Color(color.r, color.g, color.b, 0f);
+        trailRenderer.colorGradient = CreateTrailGradient(color);
     }
 
     private void UpdateScale()
@@ -84,5 +85,30 @@ public sealed class PlayerPolish : MonoBehaviour
     {
         var inverse = value - 1f;
         return 1f + (overshoot + 1f) * inverse * inverse * inverse + overshoot * inverse * inverse;
+    }
+
+    private static Gradient CreateTrailGradient() => CreateTrailGradient(new Color(0.25f, 0.95f, 1f, 1f));
+
+    private static Gradient CreateTrailGradient(Color leadColor)
+    {
+        Color.RGBToHSV(leadColor, out var hue, out _, out _);
+        var midColor = Color.HSVToRGB(Mathf.Repeat(hue + 0.08f, 1f), 0.7f, 1f);
+        var endColor = Color.HSVToRGB(Mathf.Repeat(hue + 0.16f, 1f), 0.55f, 1f);
+
+        var gradient = new Gradient();
+        gradient.SetKeys(
+            new[]
+            {
+                new GradientColorKey(leadColor, 0f),
+                new GradientColorKey(midColor, 0.45f),
+                new GradientColorKey(endColor, 1f)
+            },
+            new[]
+            {
+                new GradientAlphaKey(0.9f, 0f),
+                new GradientAlphaKey(0.35f, 0.55f),
+                new GradientAlphaKey(0f, 1f)
+            });
+        return gradient;
     }
 }

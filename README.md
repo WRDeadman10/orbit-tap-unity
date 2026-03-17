@@ -16,6 +16,7 @@ Step 8 is complete:
 - The player now has a trail, color cycling, and smoother orbit radius transitions
 - Movement and tap feedback have been tuned for better responsiveness and stronger game feel
 - Player tap feedback now uses squash-and-stretch with eased recovery and a softer idle pulse
+- The player trail now uses a short neon gradient fade to read more clearly at speed
 
 Tap input is now wired for the prototype baseline and defaults to switching orbit direction.
 Obstacles now spawn from a small runtime pool and move inward toward the center.
@@ -110,6 +111,7 @@ Assets/
 - Cycles player color over time and applies it to the trail
 - Adds subtle idle and tap pulse scaling for better feel
 - Uses an EaseOutBack recovery to make tap reactions feel punchier
+- Uses a short-lived neon gradient trail with alpha fade for more readable motion
 
 `CameraShake`
 - Applies a lightweight unscaled screen shake to the main camera

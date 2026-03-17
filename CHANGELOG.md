@@ -118,3 +118,11 @@ Date: 2026-03-17
 - Reworked tap feedback into squash-and-stretch instead of a flat scalar pulse
 - Added EaseOutBack scale recovery for a punchier feel
 - Softened and retained the idle pulse so the player stays alive on screen
+
+## Juice Pass Step 2 - Trail + Visual Feedback
+
+Date: 2026-03-17
+
+### Changed
+- Reworked the player trail into a short neon gradient ribbon
+- Added stronger alpha fade so the trail reads clearly without clutter
