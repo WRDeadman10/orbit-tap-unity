@@ -97,3 +97,15 @@ Date: 2026-03-17
 ### Changed
 - Smooth orbit radius transitions instead of snapping instantly
 - Add a player trail and evolving color treatment during play
+
+## Feel Optimization
+
+Date: 2026-03-17
+
+### Added
+- `CameraShake` for subtle death feedback
+
+### Changed
+- Smoothed orbit turning with faster, more responsive direction changes
+- Added subtle idle and tap pulse scaling to the player
+- Added light score bounce feedback and screen shake on death

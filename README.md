@@ -14,6 +14,7 @@ Step 8 is complete:
 - Obstacles spawn from a small runtime pool and move inward
 - Collisions trigger game over, score is tracked over time, and the run can be restarted
 - The player now has a trail, color cycling, and smoother orbit radius transitions
+- Movement and tap feedback have been tuned for better responsiveness and stronger game feel
 
 Tap input is now wired for the prototype baseline and defaults to switching orbit direction.
 Obstacles now spawn from a small runtime pool and move inward toward the center.
@@ -101,11 +102,16 @@ Assets/
 - Builds a minimal runtime canvas with score and message text
 - Subscribes to `GameManager` score and state events
 - Displays the restart prompt after game over
+- Adds a subtle score scale response as the run progresses
 
 `PlayerPolish`
 - Adds a runtime trail renderer to the player
 - Cycles player color over time and applies it to the trail
-- Supports the final visual polish pass without extra assets
+- Adds subtle idle and tap pulse scaling for better feel
+
+`CameraShake`
+- Applies a lightweight unscaled screen shake to the main camera
+- Used for short death feedback without changing gameplay systems
 
 ## Development Notes
 

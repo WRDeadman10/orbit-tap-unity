@@ -5,12 +5,16 @@ public sealed class OrbitController : MonoBehaviour
     [SerializeField] private Transform orbitCenter;
     [SerializeField, Min(0.1f)] private float radius = 2.5f;
     [SerializeField, Min(1f)] private float speed = 180f;
-    [SerializeField, Min(1f)] private float radiusSmoothing = 8f;
+    [SerializeField, Min(0.01f)] private float radiusSmoothTime = 0.08f;
+    [SerializeField, Min(1f)] private float turnAcceleration = 1440f;
+    [SerializeField, Min(1f)] private float turnBoostMultiplier = 1.12f;
     [SerializeField] private int direction = 1;
     [SerializeField] private float startAngle;
 
     private float angle;
     private float currentRadius;
+    private float radiusVelocity;
+    private float currentAngularSpeed;
 
     public float Radius => radius;
 
@@ -20,6 +24,7 @@ public sealed class OrbitController : MonoBehaviour
     {
         angle = startAngle;
         currentRadius = radius;
+        currentAngularSpeed = speed * Direction;
         SnapToOrbit();
     }
 
@@ -30,8 +35,10 @@ public sealed class OrbitController : MonoBehaviour
             return;
         }
 
-        angle += speed * Direction * Time.deltaTime;
-        currentRadius = Mathf.Lerp(currentRadius, radius, 1f - Mathf.Exp(-radiusSmoothing * Time.deltaTime));
+        var targetAngularSpeed = speed * Direction;
+        currentAngularSpeed = Mathf.MoveTowards(currentAngularSpeed, targetAngularSpeed, turnAcceleration * Time.deltaTime);
+        angle += currentAngularSpeed * Time.deltaTime;
+        currentRadius = Mathf.SmoothDamp(currentRadius, radius, ref radiusVelocity, radiusSmoothTime);
         SnapToOrbit();
     }
 
@@ -40,17 +47,24 @@ public sealed class OrbitController : MonoBehaviour
         direction = Direction;
         radius = Mathf.Max(0.1f, radius);
         speed = Mathf.Max(1f, speed);
-        radiusSmoothing = Mathf.Max(1f, radiusSmoothing);
+        radiusSmoothTime = Mathf.Max(0.01f, radiusSmoothTime);
+        turnAcceleration = Mathf.Max(1f, turnAcceleration);
+        turnBoostMultiplier = Mathf.Max(1f, turnBoostMultiplier);
 
         if (!Application.isPlaying)
         {
             angle = startAngle;
             currentRadius = radius;
+            currentAngularSpeed = speed * Direction;
             SnapToOrbit();
         }
     }
 
-    public void SwitchDirection() => direction *= -1;
+    public void SwitchDirection()
+    {
+        direction *= -1;
+        currentAngularSpeed = speed * direction * turnBoostMultiplier;
+    }
 
     public void SetRadius(float nextRadius)
     {

@@ -9,6 +9,7 @@ public sealed class TapInput : MonoBehaviour
     }
 
     [SerializeField] private OrbitController orbitController;
+    [SerializeField] private PlayerPolish playerPolish;
     [SerializeField] private TapMode tapMode = TapMode.SwitchDirection;
     [SerializeField, Min(0.1f)] private float radiusStep = 0.75f;
     [SerializeField, Min(0.1f)] private float minimumRadius = 2.5f;
@@ -29,6 +30,7 @@ public sealed class TapInput : MonoBehaviour
         if (tapMode == TapMode.SwitchDirection)
         {
             orbitController.SwitchDirection();
+            playerPolish?.PlayTapPulse();
             return;
         }
 
@@ -39,6 +41,7 @@ public sealed class TapInput : MonoBehaviour
         }
 
         orbitController.SetRadius(nextRadius);
+        playerPolish?.PlayTapPulse();
     }
 
     private static bool WasTapped()

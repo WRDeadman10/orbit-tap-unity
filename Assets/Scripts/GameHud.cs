@@ -3,9 +3,14 @@ using UnityEngine.UI;
 
 public sealed class GameHud : MonoBehaviour
 {
+    [SerializeField] private float scoreScaleBump = 0.12f;
+    [SerializeField] private float scoreScaleDecay = 8f;
+
     private Text scoreText;
     private Text messageText;
     private GameManager gameManager;
+    private Vector3 scoreBaseScale;
+    private float scoreBump;
 
     private void Awake() => BuildHud();
 
@@ -34,7 +39,17 @@ public sealed class GameHud : MonoBehaviour
         gameManager.GameStateChanged -= HandleGameStateChanged;
     }
 
-    private void HandleScoreChanged(int score) => scoreText.text = $"Score {score}";
+    private void Update()
+    {
+        scoreBump = Mathf.MoveTowards(scoreBump, 0f, scoreScaleDecay * Time.unscaledDeltaTime);
+        scoreText.rectTransform.localScale = scoreBaseScale * (1f + scoreBump);
+    }
+
+    private void HandleScoreChanged(int score)
+    {
+        scoreText.text = $"Score {score}";
+        scoreBump = scoreScaleBump;
+    }
 
     private void HandleGameStateChanged(bool isPlaying)
     {
@@ -53,6 +68,7 @@ public sealed class GameHud : MonoBehaviour
 
         scoreText = CreateText("ScoreText", canvasObject.transform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -40f), 42, TextAnchor.MiddleCenter);
         messageText = CreateText("MessageText", canvasObject.transform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, 36, TextAnchor.MiddleCenter);
+        scoreBaseScale = scoreText.rectTransform.localScale;
     }
 
     private static Text CreateText(

@@ -8,6 +8,7 @@ public sealed class GameManager : MonoBehaviour
 
     public event Action<int> ScoreChanged;
     public event Action<bool> GameStateChanged;
+    public event Action Died;
 
     public bool IsPlaying { get; private set; }
 
@@ -70,6 +71,7 @@ public sealed class GameManager : MonoBehaviour
         }
 
         IsPlaying = false;
+        Died?.Invoke();
         GameStateChanged?.Invoke(false);
     }
 
