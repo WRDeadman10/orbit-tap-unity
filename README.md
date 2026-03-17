@@ -15,6 +15,7 @@ Step 8 is complete:
 - Collisions trigger game over, score is tracked over time, and the run can be restarted
 - The player now has a trail, color cycling, and smoother orbit radius transitions
 - Movement and tap feedback have been tuned for better responsiveness and stronger game feel
+- Player tap feedback now uses squash-and-stretch with eased recovery and a softer idle pulse
 
 Tap input is now wired for the prototype baseline and defaults to switching orbit direction.
 Obstacles now spawn from a small runtime pool and move inward toward the center.
@@ -108,6 +109,7 @@ Assets/
 - Adds a runtime trail renderer to the player
 - Cycles player color over time and applies it to the trail
 - Adds subtle idle and tap pulse scaling for better feel
+- Uses an EaseOutBack recovery to make tap reactions feel punchier
 
 `CameraShake`
 - Applies a lightweight unscaled screen shake to the main camera

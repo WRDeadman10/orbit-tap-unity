@@ -6,17 +6,19 @@ public sealed class PlayerPolish : MonoBehaviour
     [SerializeField] private CircleVisual circleVisual;
     [SerializeField] private float hueCycleSpeed = 0.15f;
     [SerializeField] private float colorLerpSpeed = 8f;
-    [SerializeField] private float idlePulseAmplitude = 0.04f;
-    [SerializeField] private float idlePulseFrequency = 3f;
-    [SerializeField] private float tapPulseAmount = 0.16f;
-    [SerializeField] private float tapPulseDecay = 10f;
+    [SerializeField] private float idlePulseAmplitude = 0.035f;
+    [SerializeField] private float idlePulseFrequency = 2.8f;
+    [SerializeField] private Vector2 tapSquashStretch = new(1.18f, 0.82f);
+    [SerializeField] private float tapRecoveryDuration = 0.18f;
+    [SerializeField] private float tapRecoveryOvershoot = 1.9f;
     [SerializeField] private float trailTime = 0.35f;
     [SerializeField] private float trailWidth = 0.14f;
 
     private TrailRenderer trailRenderer;
     private Color currentColor = Color.white;
     private Vector3 baseScale;
-    private float tapPulse;
+    private Vector3 tapScale = Vector3.one;
+    private float tapRecoveryTime = 1f;
 
     private void Awake()
     {
@@ -31,13 +33,15 @@ public sealed class PlayerPolish : MonoBehaviour
     {
         var targetColor = Color.HSVToRGB(Mathf.Repeat(Time.time * hueCycleSpeed, 1f), 0.72f, 1f);
         currentColor = Color.Lerp(currentColor, targetColor, colorLerpSpeed * Time.deltaTime);
-        tapPulse = Mathf.MoveTowards(tapPulse, 0f, tapPulseDecay * Time.deltaTime);
-        var idlePulse = 1f + Mathf.Sin(Time.time * idlePulseFrequency) * idlePulseAmplitude;
-        transform.localScale = baseScale * (idlePulse + tapPulse);
+        UpdateScale();
         ApplyColor(currentColor);
     }
 
-    public void PlayTapPulse() => tapPulse = tapPulseAmount;
+    public void PlayTapPulse()
+    {
+        tapScale = new Vector3(tapSquashStretch.x, tapSquashStretch.y, 1f);
+        tapRecoveryTime = 0f;
+    }
 
     private void ConfigureTrail()
     {
@@ -57,5 +61,28 @@ public sealed class PlayerPolish : MonoBehaviour
         circleVisual.SetColor(color);
         trailRenderer.startColor = color;
         trailRenderer.endColor = new Color(color.r, color.g, color.b, 0f);
+    }
+
+    private void UpdateScale()
+    {
+        if (tapRecoveryTime < 1f)
+        {
+            tapRecoveryTime += Time.deltaTime / tapRecoveryDuration;
+            var eased = EaseOutBack(Mathf.Clamp01(tapRecoveryTime), tapRecoveryOvershoot);
+            tapScale = Vector3.LerpUnclamped(tapScale, Vector3.one, eased);
+        }
+        else
+        {
+            tapScale = Vector3.one;
+        }
+
+        var idlePulse = 1f + Mathf.Sin(Time.time * idlePulseFrequency) * idlePulseAmplitude;
+        transform.localScale = Vector3.Scale(baseScale * idlePulse, tapScale);
+    }
+
+    private static float EaseOutBack(float value, float overshoot)
+    {
+        var inverse = value - 1f;
+        return 1f + (overshoot + 1f) * inverse * inverse * inverse + overshoot * inverse * inverse;
     }
 }

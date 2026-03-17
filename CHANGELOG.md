@@ -109,3 +109,12 @@ Date: 2026-03-17
 - Smoothed orbit turning with faster, more responsive direction changes
 - Added subtle idle and tap pulse scaling to the player
 - Added light score bounce feedback and screen shake on death
+
+## Juice Pass Step 1 - Player Feedback
+
+Date: 2026-03-17
+
+### Changed
+- Reworked tap feedback into squash-and-stretch instead of a flat scalar pulse
+- Added EaseOutBack scale recovery for a punchier feel
+- Softened and retained the idle pulse so the player stays alive on screen
