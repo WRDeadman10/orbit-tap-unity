@@ -40,3 +40,15 @@ Date: 2026-03-17
 ### Changed
 - Connected tap input to the player so taps switch orbit direction by default
 - Added an inspector-configurable alternate tap mode for radius jumps
+
+## Step 4 - Obstacle System
+
+Date: 2026-03-17
+
+### Added
+- `BoxVisual` for primitive obstacle rendering
+- `ObstacleController` for inward-moving hazards
+- `ObstacleSpawner` with a basic obstacle pool
+
+### Changed
+- Added a scene spawner that emits rotating rectangular obstacles toward the center

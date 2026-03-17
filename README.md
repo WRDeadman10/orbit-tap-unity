@@ -15,6 +15,7 @@ Step 2 is complete:
 - Player uses a procedural circle visual with no external art assets
 
 Tap input is now wired for the prototype baseline and defaults to switching orbit direction.
+Obstacles now spawn from a small runtime pool and move inward toward the center.
 
 ## Unity Version
 
@@ -67,6 +68,20 @@ Assets/
 - Reads mouse and touch taps with a single lightweight input path
 - Supports switching orbit direction or cycling to the next orbit radius
 - Keeps tap behavior configurable from the inspector
+
+`BoxVisual`
+- Renders pooled obstacle rectangles with primitive sprite data
+- Keeps obstacle appearance configurable without art assets
+
+`ObstacleController`
+- Moves a spawned obstacle inward over time
+- Applies per-obstacle size and rotation values
+- Returns obstacles back to the pool when they reach the center
+
+`ObstacleSpawner`
+- Spawns inward-moving obstacles around the orbit
+- Reuses obstacle instances through a basic queue-based pool
+- Exposes spawn timing, speed, size, and rotation tuning in the inspector
 
 ## Development Notes
 
