@@ -60,12 +60,16 @@ public sealed class ObstacleController : MonoBehaviour
         rotationSpeed = nextRotationSpeed;
         isActive = true;
         nearMissTriggered = false;
+        boxVisual ??= GetComponent<BoxVisual>();
 
         var radians = angle * Mathf.Deg2Rad;
         var direction = new Vector3(Mathf.Cos(radians), Mathf.Sin(radians), 0f);
         transform.position = orbitCenter.position + direction * radius;
         transform.rotation = Quaternion.Euler(0f, 0f, angle + 90f);
-        boxVisual.SetAppearance(size, color);
+        if (boxVisual != null)
+        {
+            boxVisual.SetAppearance(size, color);
+        }
         gameObject.SetActive(true);
     }
 
