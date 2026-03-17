@@ -19,6 +19,7 @@ Step 8 is complete:
 - The player trail now uses a short neon gradient fade to read more clearly at speed
 - Near misses now give a small score spike, flash, and camera feedback
 - Death now hits harder with a short slow-motion beat, burst particles, and stronger shake
+- The center anchor now pulses and shifts color to keep the playfield feeling alive
 
 Tap input is now wired for the prototype baseline and defaults to switching orbit direction.
 Obstacles now spawn from a small runtime pool and move inward toward the center.
@@ -125,6 +126,10 @@ Assets/
 
 `ScreenFlash`
 - Draws a lightweight fullscreen overlay flash for high-feedback events
+
+`BackgroundAmbience`
+- Turns the center anchor into a pulsing ambient visual
+- Adds slow color drift and light rotation without changing gameplay rules
 
 `DeathImpactFeedback`
 - Plays the death feedback stack independently of collision logic

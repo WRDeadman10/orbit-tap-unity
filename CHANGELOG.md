@@ -149,3 +149,14 @@ Date: 2026-03-17
 ### Changed
 - Add a short slow-motion beat on death
 - Add burst particles and a heavier camera shake when the player is hit
+
+## Juice Pass Step 5 - Background Juice
+
+Date: 2026-03-17
+
+### Added
+- `BackgroundAmbience` for center pulse and color drift
+
+### Changed
+- Turn the center anchor into a subtle animated focal point
+- Add slow ambience rotation without touching the gameplay path
