@@ -17,6 +17,7 @@ Step 8 is complete:
 - Movement and tap feedback have been tuned for better responsiveness and stronger game feel
 - Player tap feedback now uses squash-and-stretch with eased recovery and a softer idle pulse
 - The player trail now uses a short neon gradient fade to read more clearly at speed
+- Near misses now give a small score spike, flash, and camera feedback
 
 Tap input is now wired for the prototype baseline and defaults to switching orbit direction.
 Obstacles now spawn from a small runtime pool and move inward toward the center.
@@ -116,6 +117,13 @@ Assets/
 `CameraShake`
 - Applies a lightweight unscaled screen shake to the main camera
 - Used for short death feedback without changing gameplay systems
+
+`NearMissFeedback`
+- Rewards narrowly avoided obstacles with extra score
+- Triggers lighter shake and flash feedback for retention-friendly moments
+
+`ScreenFlash`
+- Draws a lightweight fullscreen overlay flash for high-feedback events
 
 ## Development Notes
 

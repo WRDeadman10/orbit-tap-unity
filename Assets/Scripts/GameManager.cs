@@ -75,6 +75,12 @@ public sealed class GameManager : MonoBehaviour
         GameStateChanged?.Invoke(false);
     }
 
+    public void AddBonusScore(int amount)
+    {
+        score += Mathf.Max(0, amount);
+        PublishScoreIfNeeded();
+    }
+
     public void RestartGame() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
     private void PublishScoreIfNeeded()

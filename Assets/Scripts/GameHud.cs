@@ -58,6 +58,11 @@ public sealed class GameHud : MonoBehaviour
 
     private void BuildHud()
     {
+        if (gameObject.GetComponent<ScreenFlash>() == null)
+        {
+            gameObject.AddComponent<ScreenFlash>();
+        }
+
         var canvasObject = new GameObject("Canvas");
         canvasObject.transform.SetParent(transform, false);
 

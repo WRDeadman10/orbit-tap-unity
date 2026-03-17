@@ -3,13 +3,19 @@ using UnityEngine;
 public sealed class ObstacleController : MonoBehaviour
 {
     [SerializeField, Min(0.1f)] private float despawnRadius = 0.35f;
+    [SerializeField, Min(0.1f)] private float nearMissRadiusWindow = 0.65f;
+    [SerializeField, Min(0.1f)] private float nearMissDistance = 1f;
+    [SerializeField, Min(0.1f)] private float collisionBuffer = 0.4f;
 
     private Transform orbitCenter;
     private ObstacleSpawner owner;
     private BoxVisual boxVisual;
+    private Transform playerTransform;
+    private NearMissFeedback nearMissFeedback;
     private float moveSpeed;
     private float rotationSpeed;
     private bool isActive;
+    private bool nearMissTriggered;
 
     private void Awake() => boxVisual = GetComponent<BoxVisual>();
 
@@ -26,6 +32,7 @@ public sealed class ObstacleController : MonoBehaviour
             moveSpeed * Time.deltaTime);
 
         transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
+        TryTriggerNearMiss();
 
         if (Vector2.Distance(transform.position, orbitCenter.position) <= despawnRadius)
         {
@@ -41,13 +48,18 @@ public sealed class ObstacleController : MonoBehaviour
         float nextMoveSpeed,
         float nextRotationSpeed,
         Vector2 size,
-        Color color)
+        Color color,
+        Transform nextPlayerTransform,
+        NearMissFeedback nextNearMissFeedback)
     {
         owner = nextOwner;
         orbitCenter = nextCenter;
+        playerTransform = nextPlayerTransform;
+        nearMissFeedback = nextNearMissFeedback;
         moveSpeed = nextMoveSpeed;
         rotationSpeed = nextRotationSpeed;
         isActive = true;
+        nearMissTriggered = false;
 
         var radians = angle * Mathf.Deg2Rad;
         var direction = new Vector3(Mathf.Cos(radians), Mathf.Sin(radians), 0f);
@@ -67,5 +79,29 @@ public sealed class ObstacleController : MonoBehaviour
         isActive = false;
         gameObject.SetActive(false);
         owner.Release(this);
+    }
+
+    private void TryTriggerNearMiss()
+    {
+        if (nearMissTriggered || playerTransform == null || nearMissFeedback == null)
+        {
+            return;
+        }
+
+        var playerOrbitRadius = Vector2.Distance(playerTransform.position, orbitCenter.position);
+        var obstacleRadius = Vector2.Distance(transform.position, orbitCenter.position);
+        if (Mathf.Abs(playerOrbitRadius - obstacleRadius) > nearMissRadiusWindow)
+        {
+            return;
+        }
+
+        var distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
+        if (distanceToPlayer >= nearMissDistance || distanceToPlayer <= collisionBuffer)
+        {
+            return;
+        }
+
+        nearMissTriggered = true;
+        nearMissFeedback.Trigger();
     }
 }

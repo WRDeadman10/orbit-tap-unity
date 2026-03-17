@@ -126,3 +126,15 @@ Date: 2026-03-17
 ### Changed
 - Reworked the player trail into a short neon gradient ribbon
 - Added stronger alpha fade so the trail reads clearly without clutter
+
+## Juice Pass Step 3 - Near Miss System
+
+Date: 2026-03-17
+
+### Added
+- `NearMissFeedback` to reward narrowly avoided obstacles
+- `ScreenFlash` for lightweight fullscreen feedback
+
+### Changed
+- Detect near misses when obstacles skim the player orbit line without colliding
+- Trigger score bonus, flash, and lighter camera shake on near misses

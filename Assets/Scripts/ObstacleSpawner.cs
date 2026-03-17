@@ -4,6 +4,8 @@ using UnityEngine;
 public sealed class ObstacleSpawner : MonoBehaviour
 {
     [SerializeField] private Transform orbitCenter;
+    [SerializeField] private Transform playerTransform;
+    [SerializeField] private NearMissFeedback nearMissFeedback;
     [SerializeField, Min(0.1f)] private float spawnInterval = 1f;
     [SerializeField, Min(0.1f)] private float spawnRadius = 7.5f;
     [SerializeField, Min(1)] private int initialPoolSize = 8;
@@ -18,6 +20,19 @@ public sealed class ObstacleSpawner : MonoBehaviour
 
     private void Awake()
     {
+        if (playerTransform == null)
+        {
+            var player = GameObject.Find("Player");
+            playerTransform = player != null ? player.transform : null;
+        }
+
+        nearMissFeedback ??= FindFirstObjectByType<NearMissFeedback>();
+        if (nearMissFeedback == null && playerTransform != null)
+        {
+            nearMissFeedback = playerTransform.GetComponent<NearMissFeedback>() ??
+                playerTransform.gameObject.AddComponent<NearMissFeedback>();
+        }
+
         for (var i = 0; i < initialPoolSize; i++)
         {
             pool.Enqueue(CreateObstacle());
@@ -52,7 +67,7 @@ public sealed class ObstacleSpawner : MonoBehaviour
             Random.Range(obstacleLengthRange.x, obstacleLengthRange.y));
         var rotationSpeed = Random.Range(rotationSpeedRange.x, rotationSpeedRange.y);
 
-        obstacle.Activate(this, orbitCenter, angle, spawnRadius, moveSpeed, rotationSpeed, size, obstacleColor);
+        obstacle.Activate(this, orbitCenter, angle, spawnRadius, moveSpeed, rotationSpeed, size, obstacleColor, playerTransform, nearMissFeedback);
     }
 
     private ObstacleController CreateObstacle()
