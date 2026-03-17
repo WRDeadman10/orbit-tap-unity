@@ -62,6 +62,7 @@ public sealed class ObstacleSpawner : MonoBehaviour
         obstacleObject.SetActive(false);
         obstacleObject.AddComponent<SpriteRenderer>();
         obstacleObject.AddComponent<BoxVisual>();
+        obstacleObject.AddComponent<BoxCollider2D>().isTrigger = true;
         return obstacleObject.AddComponent<ObstacleController>();
     }
 }

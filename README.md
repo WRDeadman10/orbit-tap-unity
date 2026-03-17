@@ -16,6 +16,7 @@ Step 2 is complete:
 
 Tap input is now wired for the prototype baseline and defaults to switching orbit direction.
 Obstacles now spawn from a small runtime pool and move inward toward the center.
+Collisions now stop the prototype immediately when the player touches an obstacle.
 
 ## Unity Version
 
@@ -82,6 +83,10 @@ Assets/
 - Spawns inward-moving obstacles around the orbit
 - Reuses obstacle instances through a basic queue-based pool
 - Exposes spawn timing, speed, size, and rotation tuning in the inspector
+
+`PlayerCollision`
+- Detects player contact with pooled obstacle objects
+- Triggers the temporary game-over stop used before the full game manager is added
 
 ## Development Notes
 

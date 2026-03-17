@@ -52,3 +52,14 @@ Date: 2026-03-17
 
 ### Changed
 - Added a scene spawner that emits rotating rectangular obstacles toward the center
+
+## Step 5 - Collision System
+
+Date: 2026-03-17
+
+### Added
+- `PlayerCollision` for obstacle hit detection
+
+### Changed
+- Added trigger colliders to the player and pooled obstacles
+- Stop the prototype immediately when a collision occurs
