@@ -298,6 +298,7 @@ GameObject:
   - component: {fileID: 300001}
   - component: {fileID: 300002}
   - component: {fileID: 300003}
+  - component: {fileID: 300004}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -388,6 +389,23 @@ MonoBehaviour:
   diameter: 0.35
   color: {r: 1, g: 0.83137256, b: 0.27058825, a: 1}
   textureSize: 64
+--- !u!114 &300004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5548080d03284c4bb822d4f251ba7262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orbitCenter: {fileID: 200001}
+  radius: 2.5
+  speed: 180
+  direction: 1
+  startAngle: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

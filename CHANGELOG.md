@@ -19,3 +19,13 @@ Date: 2026-03-17
 
 ### Removed
 - Unity tutorial/sample assets that were not needed for the prototype
+
+## Step 2 - Orbit System
+
+Date: 2026-03-17
+
+### Added
+- `OrbitController` for continuous circular motion around `CenterPoint`
+
+### Changed
+- Wired the player scene object to orbit automatically using configurable radius, speed, and direction values

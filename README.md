@@ -8,10 +8,10 @@ Orbit Tap is a 2D arcade prototype where the player controls a dot orbiting a ce
 
 ## Current Status
 
-Step 1 is complete:
-- Unity 6 URP 2D project scaffold is cleaned up
+Step 2 is complete:
+- Unity 6 URP 2D project scaffold is in place
+- The player now moves continuously around `CenterPoint`
 - Main gameplay scene is set to `OrbitTap`
-- Base scene contains `Main Camera`, `CenterPoint`, and `Player`
 - Player uses a procedural circle visual with no external art assets
 
 ## Unity Version
@@ -55,6 +55,11 @@ Assets/
 - Generates a simple circular sprite at runtime/editor time
 - Keeps the player visual asset-free
 - Exposes only the tuning values needed for diameter, color, and texture resolution
+
+`OrbitController`
+- Moves the player around the center point using sine and cosine
+- Stores orbit radius, angular speed, start angle, and direction
+- Exposes small methods that later steps can call for tap actions
 
 ## Development Notes
 
