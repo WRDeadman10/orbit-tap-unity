@@ -15,6 +15,7 @@ public sealed class PlayerPolish : MonoBehaviour
     [SerializeField] private float trailWidth = 0.16f;
 
     private TrailRenderer trailRenderer;
+    private Material trailMaterial;
     private Color currentColor = Color.white;
     private Vector3 baseScale;
     private Vector3 tapScale = Vector3.one;
@@ -24,7 +25,6 @@ public sealed class PlayerPolish : MonoBehaviour
     private void Awake()
     {
         circleVisual ??= GetComponent<CircleVisual>();
-        trailRenderer = GetComponent<TrailRenderer>() ?? gameObject.AddComponent<TrailRenderer>();
         baseScale = transform.localScale;
         ConfigureTrail();
         ApplyColor(currentColor);
@@ -54,6 +54,11 @@ public sealed class PlayerPolish : MonoBehaviour
 
     private void ConfigureTrail()
     {
+        if (!EnsureTrailRenderer())
+        {
+            return;
+        }
+
         trailRenderer.time = trailTime;
         trailRenderer.startWidth = trailWidth;
         trailRenderer.endWidth = 0f;
@@ -62,7 +67,8 @@ public sealed class PlayerPolish : MonoBehaviour
         trailRenderer.receiveShadows = false;
         trailRenderer.numCapVertices = 6;
         trailRenderer.alignment = LineAlignment.View;
-        trailRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        trailMaterial ??= new Material(Shader.Find("Sprites/Default"));
+        trailRenderer.material = trailMaterial;
         trailRenderer.emitting = true;
         trailRenderer.colorGradient = CreateTrailGradient();
     }
@@ -70,7 +76,10 @@ public sealed class PlayerPolish : MonoBehaviour
     private void ApplyColor(Color color)
     {
         circleVisual.SetColor(color);
-        trailRenderer.colorGradient = CreateTrailGradient(color);
+        if (EnsureTrailRenderer())
+        {
+            trailRenderer.colorGradient = CreateTrailGradient(color);
+        }
     }
 
     private void UpdateScale()
@@ -119,5 +128,21 @@ public sealed class PlayerPolish : MonoBehaviour
                 new GradientAlphaKey(0f, 1f)
             });
         return gradient;
+    }
+
+    private bool EnsureTrailRenderer()
+    {
+        if (trailRenderer != null)
+        {
+            return true;
+        }
+
+        trailRenderer = GetComponent<TrailRenderer>();
+        if (trailRenderer == null)
+        {
+            trailRenderer = gameObject.AddComponent<TrailRenderer>();
+        }
+
+        return trailRenderer != null;
     }
 }

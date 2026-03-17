@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,8 +7,8 @@ public sealed class GameHud : MonoBehaviour
     [SerializeField] private float scoreScaleBump = 0.12f;
     [SerializeField] private float scoreScaleDecay = 8f;
 
-    private Text scoreText;
-    private Text messageText;
+    private TextMeshProUGUI scoreText;
+    private TextMeshProUGUI messageText;
     private GameManager gameManager;
     private Vector3 scoreBaseScale;
     private float scoreBump;
@@ -76,7 +77,7 @@ public sealed class GameHud : MonoBehaviour
         scoreBaseScale = scoreText.rectTransform.localScale;
     }
 
-    private static Text CreateText(
+    private static TextMeshProUGUI CreateText(
         string objectName,
         Transform parent,
         Vector2 anchorMin,
@@ -95,13 +96,12 @@ public sealed class GameHud : MonoBehaviour
         rectTransform.anchoredPosition = anchoredPosition;
         rectTransform.sizeDelta = new Vector2(640f, 160f);
 
-        var text = textObject.AddComponent<Text>();
-        text.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+        var text = textObject.AddComponent<TextMeshProUGUI>();
         text.fontSize = fontSize;
         text.alignment = alignment;
         text.color = Color.white;
-        text.horizontalOverflow = HorizontalWrapMode.Overflow;
-        text.verticalOverflow = VerticalWrapMode.Overflow;
+        text.enableWordWrapping = false;
+        text.overflowMode = TextOverflowModes.Overflow;
         return text;
     }
 }
