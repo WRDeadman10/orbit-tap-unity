@@ -303,6 +303,7 @@ GameObject:
   - component: {fileID: 300006}
   - component: {fileID: 300007}
   - component: {fileID: 300008}
+  - component: {fileID: 300009}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -408,6 +409,7 @@ MonoBehaviour:
   orbitCenter: {fileID: 200001}
   radius: 2.5
   speed: 180
+  radiusSmoothing: 8
   direction: 1
   startAngle: 0
 --- !u!114 &300005
@@ -502,6 +504,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cc5372ab2014047a2c8c39563ff2412, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &300009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69d61f4c08b04f95ab7b8a7b71a0d66f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  circleVisual: {fileID: 300003}
+  hueCycleSpeed: 0.15
+  colorLerpSpeed: 8
+  trailTime: 0.35
+  trailWidth: 0.14
 --- !u!1 &400000
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,11 +8,12 @@ Orbit Tap is a 2D arcade prototype where the player controls a dot orbiting a ce
 
 ## Current Status
 
-Step 2 is complete:
-- Unity 6 URP 2D project scaffold is in place
-- The player now moves continuously around `CenterPoint`
-- Main gameplay scene is set to `OrbitTap`
-- Player uses a procedural circle visual with no external art assets
+Step 8 is complete:
+- Orbit Tap is a fully playable hypercasual prototype
+- The player orbits the center automatically and reacts to tap input
+- Obstacles spawn from a small runtime pool and move inward
+- Collisions trigger game over, score is tracked over time, and the run can be restarted
+- The player now has a trail, color cycling, and smoother orbit radius transitions
 
 Tap input is now wired for the prototype baseline and defaults to switching orbit direction.
 Obstacles now spawn from a small runtime pool and move inward toward the center.
@@ -100,6 +101,11 @@ Assets/
 - Builds a minimal runtime canvas with score and message text
 - Subscribes to `GameManager` score and state events
 - Displays the restart prompt after game over
+
+`PlayerPolish`
+- Adds a runtime trail renderer to the player
+- Cycles player color over time and applies it to the trail
+- Supports the final visual polish pass without extra assets
 
 ## Development Notes
 

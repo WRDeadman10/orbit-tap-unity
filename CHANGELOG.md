@@ -86,3 +86,14 @@ Date: 2026-03-17
 ### Changed
 - Display the current score during play
 - Show a restart prompt after game over
+
+## Step 8 - Polish
+
+Date: 2026-03-17
+
+### Added
+- `PlayerPolish` for trail and color-cycling feedback
+
+### Changed
+- Smooth orbit radius transitions instead of snapping instantly
+- Add a player trail and evolving color treatment during play

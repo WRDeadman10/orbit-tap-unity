@@ -5,10 +5,12 @@ public sealed class OrbitController : MonoBehaviour
     [SerializeField] private Transform orbitCenter;
     [SerializeField, Min(0.1f)] private float radius = 2.5f;
     [SerializeField, Min(1f)] private float speed = 180f;
+    [SerializeField, Min(1f)] private float radiusSmoothing = 8f;
     [SerializeField] private int direction = 1;
     [SerializeField] private float startAngle;
 
     private float angle;
+    private float currentRadius;
 
     public float Radius => radius;
 
@@ -17,6 +19,7 @@ public sealed class OrbitController : MonoBehaviour
     private void Awake()
     {
         angle = startAngle;
+        currentRadius = radius;
         SnapToOrbit();
     }
 
@@ -28,6 +31,7 @@ public sealed class OrbitController : MonoBehaviour
         }
 
         angle += speed * Direction * Time.deltaTime;
+        currentRadius = Mathf.Lerp(currentRadius, radius, 1f - Mathf.Exp(-radiusSmoothing * Time.deltaTime));
         SnapToOrbit();
     }
 
@@ -36,10 +40,12 @@ public sealed class OrbitController : MonoBehaviour
         direction = Direction;
         radius = Mathf.Max(0.1f, radius);
         speed = Mathf.Max(1f, speed);
+        radiusSmoothing = Mathf.Max(1f, radiusSmoothing);
 
         if (!Application.isPlaying)
         {
             angle = startAngle;
+            currentRadius = radius;
             SnapToOrbit();
         }
     }
@@ -60,7 +66,7 @@ public sealed class OrbitController : MonoBehaviour
         }
 
         var radians = angle * Mathf.Deg2Rad;
-        var offset = new Vector3(Mathf.Cos(radians), Mathf.Sin(radians), 0f) * radius;
+        var offset = new Vector3(Mathf.Cos(radians), Mathf.Sin(radians), 0f) * currentRadius;
         transform.position = orbitCenter.position + offset;
     }
 }

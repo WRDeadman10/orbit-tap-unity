@@ -16,6 +16,15 @@ public sealed class CircleVisual : MonoBehaviour
 
     private void OnValidate() => Rebuild();
 
+    public void SetColor(Color nextColor)
+    {
+        color = nextColor;
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = color;
+        }
+    }
+
     private void OnDisable()
     {
         if (runtimeSprite != null)
@@ -54,7 +63,7 @@ public sealed class CircleVisual : MonoBehaviour
         var pixels = new Color32[textureSize * textureSize];
         var radius = (textureSize - 1) * 0.5f;
         var center = new Vector2(radius, radius);
-        var tint = (Color32)color;
+        var tint = (Color32)Color.white;
 
         for (var y = 0; y < textureSize; y++)
         {
@@ -77,6 +86,6 @@ public sealed class CircleVisual : MonoBehaviour
         runtimeSprite.hideFlags = HideFlags.HideAndDontSave;
 
         spriteRenderer.sprite = runtimeSprite;
-        spriteRenderer.color = Color.white;
+        spriteRenderer.color = color;
     }
 }
