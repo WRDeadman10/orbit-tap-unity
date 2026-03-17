@@ -2,6 +2,14 @@ using UnityEngine;
 
 public sealed class PlayerCollision : MonoBehaviour
 {
+    private void Awake()
+    {
+        if (GetComponent<DeathImpactFeedback>() == null)
+        {
+            gameObject.AddComponent<DeathImpactFeedback>();
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.TryGetComponent<ObstacleController>(out _))

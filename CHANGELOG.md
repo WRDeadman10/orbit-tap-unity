@@ -138,3 +138,14 @@ Date: 2026-03-17
 ### Changed
 - Detect near misses when obstacles skim the player orbit line without colliding
 - Trigger score bonus, flash, and lighter camera shake on near misses
+
+## Juice Pass Step 4 - Death Impact
+
+Date: 2026-03-17
+
+### Added
+- `DeathImpactFeedback` and pooled `DeathParticle` burst visuals
+
+### Changed
+- Add a short slow-motion beat on death
+- Add burst particles and a heavier camera shake when the player is hit

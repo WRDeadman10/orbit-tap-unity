@@ -18,6 +18,7 @@ Step 8 is complete:
 - Player tap feedback now uses squash-and-stretch with eased recovery and a softer idle pulse
 - The player trail now uses a short neon gradient fade to read more clearly at speed
 - Near misses now give a small score spike, flash, and camera feedback
+- Death now hits harder with a short slow-motion beat, burst particles, and stronger shake
 
 Tap input is now wired for the prototype baseline and defaults to switching orbit direction.
 Obstacles now spawn from a small runtime pool and move inward toward the center.
@@ -124,6 +125,10 @@ Assets/
 
 `ScreenFlash`
 - Draws a lightweight fullscreen overlay flash for high-feedback events
+
+`DeathImpactFeedback`
+- Plays the death feedback stack independently of collision logic
+- Uses pooled simple particles, short slow motion, and a stronger shake to sell failure
 
 ## Development Notes
 
