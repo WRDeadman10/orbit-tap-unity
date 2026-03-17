@@ -19,6 +19,7 @@ public sealed class PlayerPolish : MonoBehaviour
     private Vector3 baseScale;
     private Vector3 tapScale = Vector3.one;
     private float tapRecoveryTime = 1f;
+    private float cosmeticHueOffset;
 
     private void Awake()
     {
@@ -31,7 +32,7 @@ public sealed class PlayerPolish : MonoBehaviour
 
     private void Update()
     {
-        var targetColor = Color.HSVToRGB(Mathf.Repeat(Time.time * hueCycleSpeed, 1f), 0.72f, 1f);
+        var targetColor = Color.HSVToRGB(Mathf.Repeat(Time.time * hueCycleSpeed + cosmeticHueOffset, 1f), 0.72f, 1f);
         currentColor = Color.Lerp(currentColor, targetColor, colorLerpSpeed * Time.deltaTime);
         UpdateScale();
         ApplyColor(currentColor);
@@ -41,6 +42,14 @@ public sealed class PlayerPolish : MonoBehaviour
     {
         tapScale = new Vector3(tapSquashStretch.x, tapSquashStretch.y, 1f);
         tapRecoveryTime = 0f;
+    }
+
+    public void SetCosmetic(float hueOffset, float nextTrailTime, float nextTrailWidth)
+    {
+        cosmeticHueOffset = hueOffset;
+        trailTime = nextTrailTime;
+        trailWidth = nextTrailWidth;
+        ConfigureTrail();
     }
 
     private void ConfigureTrail()

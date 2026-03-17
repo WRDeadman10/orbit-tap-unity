@@ -34,6 +34,10 @@ public sealed class GameManager : MonoBehaviour
         orbitController = FindFirstObjectByType<OrbitController>();
         obstacleSpawner = FindFirstObjectByType<ObstacleSpawner>();
         deathImpactFeedback = FindFirstObjectByType<DeathImpactFeedback>();
+        if (GetComponent<CosmeticProgressionManager>() == null)
+        {
+            gameObject.AddComponent<CosmeticProgressionManager>();
+        }
     }
 
     private void Start() => StartGame();

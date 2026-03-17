@@ -168,3 +168,15 @@ Date: 2026-03-17
 ### Changed
 - Replace scene reload restart with an in-place run reset
 - Reset obstacles, player orbit state, and death particles instantly on retry
+
+## Retention Step 7 - Basic Progression
+
+Date: 2026-03-17
+
+### Added
+- `CosmeticCatalog` ScriptableObject config for early unlock tuning
+- `CosmeticProgressionManager` for score-based cosmetic unlocks
+
+### Changed
+- Unlock the first cosmetics quickly based on best score
+- Apply unlocked trail/color variants automatically so progression is immediately visible

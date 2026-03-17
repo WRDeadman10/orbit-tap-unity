@@ -21,6 +21,7 @@ Step 8 is complete:
 - Death now hits harder with a short slow-motion beat, burst particles, and stronger shake
 - The center anchor now pulses and shifts color to keep the playfield feeling alive
 - Restarts now reset the run in place instead of reloading the scene
+- The first cosmetics now unlock very quickly from score so early sessions feel rewarding
 
 Tap input is now wired for the prototype baseline and defaults to switching orbit direction.
 Obstacles now spawn from a small runtime pool and move inward toward the center.
@@ -131,6 +132,10 @@ Assets/
 `BackgroundAmbience`
 - Turns the center anchor into a pulsing ambient visual
 - Adds slow color drift and light rotation without changing gameplay rules
+
+`CosmeticProgressionManager`
+- Unlocks cosmetic trail/color variants based on best score
+- Auto-applies the best unlocked cosmetic to keep early progression visible
 
 `DeathImpactFeedback`
 - Plays the death feedback stack independently of collision logic
