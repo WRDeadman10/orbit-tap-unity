@@ -75,3 +75,14 @@ Date: 2026-03-17
 - Route collisions through the game manager instead of only freezing time
 - Pause orbit motion, input, and obstacle spawning when the run ends
 - Support scene restart after game over
+
+## Step 7 - UI System
+
+Date: 2026-03-17
+
+### Added
+- `GameHud` for score and game-over text
+
+### Changed
+- Display the current score during play
+- Show a restart prompt after game over

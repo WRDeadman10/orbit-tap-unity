@@ -18,6 +18,7 @@ Tap input is now wired for the prototype baseline and defaults to switching orbi
 Obstacles now spawn from a small runtime pool and move inward toward the center.
 Collisions now stop the prototype immediately when the player touches an obstacle.
 The prototype now has a central game manager that tracks score over time and restarts the scene after game over.
+The HUD now shows live score and a restart prompt after the run ends.
 
 ## Unity Version
 
@@ -94,6 +95,11 @@ Assets/
 - Tracks score as survived time
 - Reloads the active scene on restart input
 - Publishes score and state changes for the UI layer
+
+`GameHud`
+- Builds a minimal runtime canvas with score and message text
+- Subscribes to `GameManager` score and state events
+- Displays the restart prompt after game over
 
 ## Development Notes
 
